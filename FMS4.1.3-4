@@ -1,0 +1,57 @@
+#include <iostream>
+
+using namespace std;
+int* FMS(int *A,int low, int high)
+{
+    int suma= -100000;
+    int left=0,right=0;
+
+    for(int i=low; i<high;i++)
+    {
+        int sum=0;
+        for(int j=i; j<high;j++)
+        {
+            sum+=A[j];
+            if(sum>suma)
+            {
+                suma=sum;
+                left=i;
+                right=j;
+            }
+        }
+    }
+    int R[3]={left,right,suma};
+    //cout<<endl<<left<<" "<<right<<" "<<suma<<endl;
+    return R;
+
+}
+
+int main()
+{
+    cout << "FMS" << endl;
+    //         0   1  2  3  4  5   6  7  8  9  10 11  12 13 14 15
+    int A[16]={13,-3,-25,20,-3,-16,-23,8,-20,-7,12,-5,-22,15,-4,37};
+    int* a;
+    int* b;
+    int x,y,z;
+    a=A;
+
+
+    clock_t startC2=clock();
+    double duracion2;
+
+    b=FMS(a,0,16);
+
+    cout<<(double)(clock()-startC2/CLOCKS_PER_SEC);
+    cout<<duracion2;
+
+    x=b[0];
+    y=b[1];
+    z=b[2];
+    cout<<endl<<"RESPUESTA"<<endl;
+    cout<< x<<endl;
+    cout<< y<<endl;
+    cout<< z<<endl;
+
+    return 0;
+}
