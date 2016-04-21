@@ -1,0 +1,80 @@
+#include <iostream>
+
+using namespace std;
+
+int Left(int i)
+{
+    return (2*i+1);
+}
+int Right(int i)
+{
+    return 2*(i+1);
+}
+
+void MaxHeapify(int*A,int i, int tam)
+{
+    int largest;
+    int l=Left(i);
+    int r=Right(i);
+    if(l<tam && A[l]>A[i])
+    {
+        largest=l;
+    }
+    else
+    {
+        largest=i;
+    }
+    if(r<tam && A[r]>A[largest])
+    {
+        largest=r;
+    }
+    if (largest!=i)
+    {
+        int temp=A[i];
+        A[i]=A[largest];
+        A[largest]=temp;
+        MaxHeapify(A,largest,tam);
+    }
+}
+
+void BuildMaxHeap(int* A, int tam)
+{
+    for(int i=tam/2 ; i>=0; i--)//-1
+    {
+        MaxHeapify(A,i,tam);
+    }
+}
+
+void HeapSort(int* A, int tam)
+{
+    BuildMaxHeap(A,tam);
+    int heapsize=tam;
+
+    for(int i=tam-1;i>0;i--) //>0
+    {
+        int temp=A[0];
+        A[0]=A[i];
+        A[i]=temp;
+        heapsize--;
+        MaxHeapify(A,0,heapsize);
+    }
+}
+
+int main()
+{
+    cout << "Heap Sort" << endl;
+    int A[10]={16,14,10,8,7,9,3,2,4,1};
+    
+//    for(int i=0; i< 10; i++)
+//    {
+//        cin>>n;
+//        A[i]=n;
+//    }
+//    BuildMaxHeap(A,10);
+    HeapSort(A,10);
+    for(int i=0; i< 10; i++)
+    {
+        cout<<A[i]<<" ";
+    }
+    return 0;
+}
