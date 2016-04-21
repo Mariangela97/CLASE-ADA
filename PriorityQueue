@@ -1,0 +1,100 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int Parent(int i)
+{
+    return (i-1)/2;
+}
+void MaxHeapify(vector<int>&A,int i)
+{
+    int tam=A.size();
+    int largest;
+    int l=Left(i);
+    int r=Right(i);
+    if(l<tam && A[l]>A[i])
+    {
+        largest=l;
+    }
+    else
+    {
+        largest=i;
+    }
+    if(r<tam && A[r]>A[largest])
+    {
+        largest=r;
+    }
+    if (largest!=i)
+    {
+        int temp=A[i];
+        A[i]=A[largest];
+        A[largest]=temp;
+        MaxHeapify(A,largest);
+    }
+}
+
+int HeapMaximum(vector<int>& A)
+{
+    return A[0];
+}
+int HeapExtractMax(vector<int>&A)
+{
+    int heapsize=A.size();
+    if (heapsize<1)
+    {
+        cout<<"Heap Underflow";
+        return -1;
+    }
+    int maximo=HeapMaximum(A);
+    A[0]=A[heapsize-1];
+    heapsize--;
+    A.pop_back();
+    MaxHeapify(A,0);
+    return maximo;
+}
+void HeapIncreaseKey(vector<int>& A, int i,int key)
+{
+    if(key<A[i])
+    {
+        cout<<"Error! La nueva llave es menor"<<endl;
+        return;
+    }
+    A[i]=key;
+    while(i>0 && A[Parent(i)]<A[i])
+    {
+        int temp=A[i];
+        A[i]=A[Parent(i)];
+        A[Parent(i)]=temp;
+        i=Parent(i);
+    }
+}
+void MaxHeapInsert(vector<int>& A, int key)
+{
+    int heapsize=A.size();
+    A.push_back(-1);
+    HeapIncreaseKey(A,heapsize,key);
+}
+int main()
+{
+    cout << "Priority Queues" << endl;
+    vector<int> A;
+    int n=0,x;
+
+    cout<<endl<<"Ingresa un elemento:"<<endl;
+    cin>>x;
+    while(x>=0)
+    {
+
+        MaxHeapInsert(A,x);
+        for(int i=0; i< A.size(); i++)
+        {
+            cout<<A[i]<<" ; ";
+        }
+        cout<<endl;
+        cout<<endl<<"Ingresa un elemento:"<<endl;
+        cin>>x;
+    }
+
+    return 0;
+}
