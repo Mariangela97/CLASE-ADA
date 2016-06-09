@@ -1,0 +1,37 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    cout << "Grafo" << endl;
+    int nodos;
+    cout<<"Ingrese el numero de nodos"<<endl;
+    cin>>nodos;
+//    vector< vector<int> > Grafo;
+    int Grafo[nodos][nodos];
+    cout<<"Ingrese la matriz de adyacencia"<<endl;
+    for(int i=0; i<nodos; i++)
+    {
+        for(int j=0; j<nodos;j++)
+        {
+            cin>>Grafo[i][j];
+        }
+    }
+
+    cout<<endl<< "Grafo"<<endl;
+
+    for(int i=0; i<nodos; i++)
+    {
+        cout<<endl<<"NODO "<<i+1<<"-> ";
+        for(int j=0; j<nodos;j++)
+        {
+            if(Grafo[i][j]>0)
+            {
+                cout<<j+1<<"(peso:"<<Grafo[i][j]<<") ";
+            }
+        }
+    }
+    return 0;
+}
